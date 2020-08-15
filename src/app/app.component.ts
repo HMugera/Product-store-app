@@ -1,3 +1,4 @@
+import { AuthService } from './user/auth.service';
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 
@@ -9,9 +10,22 @@ import { Component } from '@angular/core';
 export class AppComponent {
   pageTitle = 'My Products store';
 
-  constructor(private route: Router){}
+  constructor(private route: Router,private auth: AuthService){}
 
+
+  get isLoggedIn(): boolean {
+    return this.auth.isLoggedIn;
+  }
+
+  get userName(): string {
+    if (this.auth.currentUser) {
+      return this.auth.currentUser.userName;
+    }
+    return '';
+  }
   logOut(): void{
-this.route.navigate(['/welcome'] );
+    this.auth.logout();
+    console.log('Log out');
+    this.route.navigateByUrl('/welcome');
   }
 }
