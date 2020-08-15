@@ -1,3 +1,4 @@
+import { AppRoutingModule } from './app.routing.module';
 
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,20 +18,16 @@ import { ProductModule } from '../app/product/product.module';
 import { UserModule } from './user/user.module';
 import { MessageModule } from '../app/message/message.module';
 
-import {RouterModule} from '@angular/router'
+
 @NgModule({
   imports: [
     BrowserModule,
-    RouterModule.forRoot([
-      {path: 'welcome', component: HomeComponent},
-      {path: '', redirectTo: 'welcome', pathMatch: 'full'},
-      {path: '**', component: PageNotFoundComponent}
-    ]),
     HttpClientModule,
     InMemoryWebApiModule.forRoot(ProductData, { delay: 1000 }),
     UserModule,
     ProductModule,
-    MessageModule
+    MessageModule,
+    AppRoutingModule,
   ],
   declarations: [
     AppComponent,

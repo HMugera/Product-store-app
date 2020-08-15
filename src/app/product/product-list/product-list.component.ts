@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../product';
 import { ProductService } from '../product.service';
@@ -27,7 +28,7 @@ export class ProductListComponent implements OnInit {
   filteredProducts: Product[] = [];
   products: Product[] = [];
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
 
@@ -49,5 +50,8 @@ export class ProductListComponent implements OnInit {
     this.showImage = !this.showImage;
   }
 
+  // onEdit(id:number){
+  //   this.route.navigate(['/products', this.product.id, 'edit']);
+  // }
 
 }
