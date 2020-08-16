@@ -15,8 +15,7 @@ export class ProductEditComponent implements OnInit {
   errorMessage: string;
 
   product: Product;
-  constructor(private productService: ProductService,
-    private messageService: MessageService, private activeRoute: ActivatedRoute, private route: Router) { }
+  constructor ( private productService: ProductService, private messageService: MessageService, private activeRoute: ActivatedRoute, private route: Router) { }
 
 
   ngOnInit(): void {
@@ -30,7 +29,7 @@ export class ProductEditComponent implements OnInit {
         const id = +params.get('id');
         this.getProduct(id);
       }
-    )
+    );
   }
   getProduct(id: number): void {
     this.productService.getProduct(id).subscribe({
@@ -92,11 +91,8 @@ export class ProductEditComponent implements OnInit {
     if (message) {
       this.messageService.addMessage(message);
     }
-
     // Navigate back to the product list
-    this.route.navigate(['/products']);
-  }
-
+    this.route.navigate(['/products']); }
 
 
 }
