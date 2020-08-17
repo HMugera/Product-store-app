@@ -15,15 +15,17 @@ export class ProductEditComponent implements OnInit {
   errorMessage: string;
 
   product: Product;
-  constructor ( private productService: ProductService, private messageService: MessageService, private activeRoute: ActivatedRoute, private route: Router) { }
+
+  private dataIsValid: { [key: string]: boolean } = {}
+  constructor(private productService: ProductService, private messageService: MessageService, private activeRoute: ActivatedRoute, private route: Router) { }
 
 
   ngOnInit(): void {
-this.activeRoute.data.subscribe(data => {
-  const resolvedData: ProductResolved = data['resolvedData']
-  this.errorMessage = resolvedData.error;
-  this.onProductRetrieved(resolvedData.product);
-});
+    this.activeRoute.data.subscribe(data => {
+      const resolvedData: ProductResolved = data['resolvedData']
+      this.errorMessage = resolvedData.error;
+      this.onProductRetrieved(resolvedData.product);
+    });
 
     // using snapshot;
     // const id = +this.activeRoute.snapshot.paramMap.get('id');
@@ -67,15 +69,22 @@ this.activeRoute.data.subscribe(data => {
         this.productService.deleteProduct(this.product.id).subscribe({
           next: () => this.onSaveComplete(`${this.product.productName} was deleted`),
           error: err => this.errorMessage = err
-                  });
+        });
         this.route.navigate(['/products']);
       }
     }
   }
 
+  isValid(path?: string): boolean {
+    this.validate();
+    if (path) {
+      return this.dataIsValid[path]
+    }
+    return (this.dataIsValid && Object.keys(this.dataIsValid).every(d => this.dataIsValid[d] === true))
+  }
 
   saveProduct(): void {
-    if (true === true) {
+    if (this.isValid()) {
       if (this.product.id === 0) {
         this.productService.createProduct(this.product).subscribe({
           next: () => this.onSaveComplete(`The new ${this.product.productName} was saved`),
@@ -98,7 +107,26 @@ this.activeRoute.data.subscribe(data => {
       this.messageService.addMessage(message);
     }
     // Navigate back to the product list
-    this.route.navigate(['/products']); }
+    this.route.navigate(['/products']);
+  }
 
 
+  validate(): void {
+    //Clear the validation object
+    this.dataIsValid = {};
+    //info tab
+    if (this.product.productName && this.product.productName.length >= 3 &&
+      this.product.productCode) {
+      this.dataIsValid['info'] = true;
+    } else {
+      this.dataIsValid['info'] = false;
+    }
+
+    //'tags' tab
+    if (this.product.category && this.product.category.length >= 3) {
+      this.dataIsValid['tags'] = true;
+    } else {
+      this.dataIsValid['tags'] = false;
+    }
+  }
 }

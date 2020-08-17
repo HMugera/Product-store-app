@@ -57,11 +57,11 @@
             </div>
         </form> -->
         <div class="wizard">
-            <a [routerLink]="['info']">
-        Basic Information
+            <a [routerLink]="['info']" routerLinkActive="active">
+        Basic Information <span  class="ml-2"  [ngClass]="{'fa fa-exclamation':!isValid('info')}"></span>
       </a>
-            <a [routerLink]="['tags']">
-        Search Tags
+            <a [routerLink]="['tags']" routerLinkActive="active">
+        Search Tags<span class="ml-2" [ngClass]="{'fa fa-exclamation':!isValid('tags')}"></span>
       </a>
         </div>
 
@@ -69,7 +69,7 @@
 
         <div class="row mb-2">
             <div class="col-md">
-                <button class="btn btn-primary mr-3" style="width:80px" type="button" title="Save your entered data" (click)="saveProduct()">
+                <button class="btn btn-primary mr-3" style="width:80px" type="button" title="Save your entered data" [disabled]="!isValid()" (click)="saveProduct()">
               Save
             </button>
 

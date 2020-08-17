@@ -2,6 +2,7 @@ import { AppRoutingModule } from './app.routing.module';
 
 
 import { BrowserModule } from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -22,8 +23,9 @@ import { MessageModule } from '../app/message/message.module';
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
-    InMemoryWebApiModule.forRoot(ProductData, { delay: 1000 }),
+    InMemoryWebApiModule.forRoot(ProductData, { delay: 1 }),
     UserModule,
     ProductModule,
     MessageModule,

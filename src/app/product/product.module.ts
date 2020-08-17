@@ -16,21 +16,30 @@ import { ProductEditComponent } from './product-edit/product-edit.component';
     CommonModule,
     SharedModule,
     RouterModule.forChild([
-      { path: 'products', component: ProductListComponent ,
-      resolve: { products: ResolveService } },
       {
-        path: 'products/:id', component:
-          ProductDetailComponent, resolve: { resolvedData: ProductResolverService }
+        path: 'products',
+        children: [
+          //group routes under a component-less route
+          {
+            path: '', component: ProductListComponent,
+            resolve: { products: ResolveService }
+          },
+          {
+            path: ':id', component:
+              ProductDetailComponent, resolve: { resolvedData: ProductResolverService }
+          },
+          {
+            path: ':id/edit', component:
+              ProductEditComponent, resolve: { resolvedData: ProductResolverService },
+            children: [
+              { path: '', pathMatch: 'full', redirectTo: 'info' },
+              { path: 'info', component: ProductEditInfoComponent },
+              { path: 'tags', component: ProductEditTagsComponent },
+            ]
+          },
+        ]
       },
-      {
-        path: 'products/:id/edit', component:
-          ProductEditComponent, resolve: { resolvedData: ProductResolverService },
-          children:[
-            { path: '', pathMatch: 'full', redirectTo: 'info' },
-            { path: 'info', component: ProductEditInfoComponent },
-            { path: 'tags', component: ProductEditTagsComponent },
-          ]
-      },
+
     ])
   ],
   declarations: [
