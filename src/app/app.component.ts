@@ -1,3 +1,4 @@
+import { MessageService } from 'src/app/message/message.service';
 import { slideInAnimation } from './app.animation';
 import { AuthService } from './user/auth.service';
 import { Router,Event,NavigationStart,NavigationEnd,NavigationError,NavigationCancel} from '@angular/router';
@@ -13,7 +14,9 @@ export class AppComponent {
   loading= false;
   pageTitle = 'My Products store';
 
-  constructor(private route: Router,private auth: AuthService){
+  constructor(private route: Router,
+    private auth: AuthService,
+    private messageServe:MessageService){
 
     route.events.subscribe((routerEvent:Event)=>{
       this.checkRouterEvent(routerEvent);
@@ -42,6 +45,21 @@ export class AppComponent {
     }
     return '';
   }
+
+  get isMessageDisplayed():boolean{
+    return this.messageServe.isDisplayed;
+  }
+
+displayMessages(): void{
+  this.route.navigate([{outlets: { popup:['message']}}]);
+  this.messageServe.isDisplayed = true;
+}
+
+hideMessages():void{
+  this.messageServe.isDisplayed = false;
+  this.route.navigate([{outlets: { popup :null}}])
+}
+
   logOut(): void{
     this.auth.logout();
     console.log('Log out');

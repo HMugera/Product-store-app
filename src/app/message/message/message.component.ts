@@ -11,13 +11,15 @@ export class MessageComponent implements OnInit {
   get messages(): string[] {
     return this.messageService.messages;
   }
-  constructor(private messageService: MessageService, private router: Router) { }
+  constructor(private route:Router,private messageService: MessageService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   close(): void {
     // Close the popup.
+    this.messageService.isDisplayed = false;
+    this.route.navigate([{outlets: { popup : null}}])
   }
 
 }
