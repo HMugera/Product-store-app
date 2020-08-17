@@ -31,6 +31,28 @@ export class ProductResolverService implements Resolve<ProductResolved> {
           return of({ product: null, error: message })
 
         })
+
+
       );
+
+
+
+
+  // getProducts(): Observable<Product[]> {
+  //   return this.http.get<Product[]>(this.productsUrl)
+  //     .pipe(
+  //       tap(data => console.log(JSON.stringify(data))),
+  //       catchError(this.handleError)
+  //     );
+  // }
+      // return this.productService.getProducts().pipe(
+      //   map(product => ({ product: product })),
+      //   catchError(error => {
+      //     const message = `Retrival error: ${error}`;
+      //     console.log(message);
+      //     return of({ product: null, error: message })
+
+      //   })
+      // )
   }
 }

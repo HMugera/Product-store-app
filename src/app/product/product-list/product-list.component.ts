@@ -34,23 +34,28 @@ export class ProductListComponent implements OnInit {
 
     this.listFilter = this.activatedRoute.snapshot.queryParamMap.get('filterBy') || '';
     this.showImage = this.activatedRoute.snapshot.queryParamMap.get('showImage') === 'true';
-    this.productService.getProducts().subscribe({
-      next: products => {
-        this.products = products;
-        this.filteredProducts = this.performFilter(this.listFilter);
-      },
-      error: err => this.errorMessage = err
-    });
-  }
+    // this.productService.getProducts().subscribe({
+    //   next: products => {
+    //     this.products = products;
+    //     this.filteredProducts = this.performFilter(this.listFilter);
+    //   },
+
+      this.products = this.activatedRoute.snapshot.data.products;
+      this.filteredProducts = this.performFilter(this.listFilter);
+
+      // error: err => this.errorMessage = err
+      // });
+    // });
+  };
 
   performFilter(filterBy: string): Product[] {
-    filterBy = filterBy.toLocaleLowerCase();
-    return this.products.filter((product: Product) =>
-      product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1);
-  }
+      filterBy = filterBy.toLocaleLowerCase();
+      return this.products.filter((product: Product) =>
+        product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1);
+    }
   toggleImage(): void {
-    this.showImage = !this.showImage;
-  }
+      this.showImage = !this.showImage;
+    }
 
   // onEdit(id:number){
   //   this.route.navigate(['/products', this.product.id, 'edit']);

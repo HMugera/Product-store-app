@@ -1,3 +1,4 @@
+import { ResolveService } from './resolve.service';
 import { ProductResolverService } from './product-resolver.service';
 
 import { RouterModule } from '@angular/router';
@@ -15,14 +16,20 @@ import { ProductEditComponent } from './product-edit/product-edit.component';
     CommonModule,
     SharedModule,
     RouterModule.forChild([
-      { path: 'products', component: ProductListComponent },
+      { path: 'products', component: ProductListComponent ,
+      resolve: { products: ResolveService } },
       {
         path: 'products/:id', component:
           ProductDetailComponent, resolve: { resolvedData: ProductResolverService }
       },
       {
         path: 'products/:id/edit', component:
-          ProductEditComponent, resolve: { resolvedData: ProductResolverService }
+          ProductEditComponent, resolve: { resolvedData: ProductResolverService },
+          children:[
+            { path: '', pathMatch: 'full', redirectTo: 'info' },
+            { path: 'info', component: ProductEditInfoComponent },
+            { path: 'tags', component: ProductEditTagsComponent },
+          ]
       },
     ])
   ],

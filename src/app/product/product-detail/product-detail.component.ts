@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../product';
 import { ProductService } from '../product.service';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
@@ -19,7 +18,7 @@ export class ProductDetailComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const resolvedData :ProductResolved =this.activatedRoute.snapshot.data['resolvedData']
+    const resolvedData :ProductResolved =this.activatedRoute.snapshot.data[ 'resolvedData']
     this.errorMessage = resolvedData.error;
     this.onProductRetrieved(resolvedData.product)
     // const id = +this.activatedRoute.snapshot.paramMap.get('id');
