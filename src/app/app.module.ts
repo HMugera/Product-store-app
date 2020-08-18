@@ -15,7 +15,6 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { HomeComponent } from './home/home.component';
 
 /* Feature Modules */
-import { ProductModule } from '../app/product/product.module';
 import { UserModule } from './user/user.module';
 import { MessageModule } from '../app/message/message.module';
 
@@ -27,8 +26,7 @@ import { MessageModule } from '../app/message/message.module';
     HttpClientModule,
     InMemoryWebApiModule.forRoot(ProductData, { delay: 1 }),
     UserModule,
-    ProductModule,
-    MessageModule,
+        MessageModule,
     AppRoutingModule,
   ],
   declarations: [

@@ -46,7 +46,7 @@ export class AppComponent {
     return '';
   }
 
-  get isMessageDisplayed():boolean{
+  get isMessageDisplayed(): boolean{
     return this.messageServe.isDisplayed;
   }
 
@@ -55,9 +55,9 @@ displayMessages(): void{
   this.messageServe.isDisplayed = true;
 }
 
-hideMessages():void{
+hideMessages(): void{
   this.messageServe.isDisplayed = false;
-  this.route.navigate([{outlets: { popup :null}}])
+  this.route.navigate([{outlets: { popup : null}}])
 }
 
   logOut(): void{

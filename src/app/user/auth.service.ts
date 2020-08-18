@@ -7,11 +7,12 @@ import { User } from './user';
 })
 export class AuthService {
   currentUser: User;
+  redirectUrl: string;
 
   get isLoggedIn(): boolean {
     return !!this.currentUser;
   }
-  constructor(private messageService:MessageService) { }
+  constructor(private messageService: MessageService) { }
 
   login(userName: string, password: string): void {
     if (!userName || !password) {

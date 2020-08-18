@@ -21,7 +21,13 @@ export class LoginComponent implements OnInit {
       this.auth.login(userName, password);
 
       // Navigate to the Product List page after log in.
-      this.route.navigate(['products']);
+      // this.route.navigate(['products']);
+
+      if (this.auth.redirectUrl) {
+        this.route.navigateByUrl(this.auth.redirectUrl);
+      } else {
+        this.route.navigate(['/products']);
+      }
     } else {
       this.errorMessage = 'Please enter a user name and password.';
     }

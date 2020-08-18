@@ -1,3 +1,5 @@
+import { ProductEditGuard } from './product-edit/product-edit.guard';
+import { AuthGuard } from './../user/auth.guard';
 import { ResolveService } from './resolve.service';
 import { ProductResolverService } from './product-resolver.service';
 
@@ -18,6 +20,7 @@ import { ProductEditComponent } from './product-edit/product-edit.component';
     RouterModule.forChild([
       {
         path: 'products',
+        canActivate:[AuthGuard],
         children: [
           //group routes under a component-less route
           {
@@ -29,7 +32,7 @@ import { ProductEditComponent } from './product-edit/product-edit.component';
               ProductDetailComponent, resolve: { resolvedData: ProductResolverService }
           },
           {
-            path: ':id/edit', component:
+            path: ':id/edit', canDeactivate:[ProductEditGuard],component:
               ProductEditComponent, resolve: { resolvedData: ProductResolverService },
             children: [
               { path: '', pathMatch: 'full', redirectTo: 'info' },
