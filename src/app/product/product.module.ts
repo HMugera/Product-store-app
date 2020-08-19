@@ -18,10 +18,10 @@ import { ProductEditComponent } from './product-edit/product-edit.component';
     CommonModule,
     SharedModule,
     RouterModule.forChild([
-      {
-        path: 'products',
-        canActivate:[AuthGuard],
-        children: [
+
+        // path: 'products',
+        // canActivate:[AuthGuard],
+        // children: [
           //group routes under a component-less route
           {
             path: '', component: ProductListComponent,
@@ -40,10 +40,7 @@ import { ProductEditComponent } from './product-edit/product-edit.component';
               { path: 'tags', component: ProductEditTagsComponent },
             ]
           },
-        ]
-      },
-
-    ])
+            ])
   ],
   declarations: [
     ProductDetailComponent,

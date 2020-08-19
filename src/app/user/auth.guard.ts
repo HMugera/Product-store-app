@@ -1,19 +1,21 @@
 import { AuthService } from './auth.service';
 import { Injectable, ɵbypassSanitizationTrustResourceUrl } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { CanActivate,CanLoad,ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router, Route } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate,CanLoad {
   constructor(private authservice: AuthService, private route: Router){}
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.checkLoggedIn(state.url);
   }
-
+canLoad(route:Route): boolean{
+return this.checkLoggedIn(route.path)
+}
 
   checkLoggedIn(url: string): boolean{
     if (this.authservice.isLoggedIn){
